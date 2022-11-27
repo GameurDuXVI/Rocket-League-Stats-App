@@ -1,3 +1,26 @@
 <resources>
-    <string name="app_name">RocketLeagueStats</string>
+    <string name="app_name">Rocket League Stats</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">Android Studio</string>
+    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Global</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="all_platforms">All platforms</string>
+    <string name="goals">Goals</string>
+    <string name="wins">Wins</string>
+    <string name="mvp">Mvp\'s</string>
+    <string name="saves">Saves</string>
+    <string name="assists">Assists</string>
+    <string name="shots">Shots</string>
+    <string name="goal_shot_ratio">Goals/Shot ratio</string>
+    <string name="trn_score">TRN Score</string>
+    <string name="season_reward_level">Season reward level</string>
+    <string name="season_reward_wins">Season reward wins</string>
+    <string name="trn_rating">TRN rating</string>
 </resources>

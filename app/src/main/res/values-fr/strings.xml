@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rocket League Stats</string>
+    <string name="menu_home">Général</string>
+    <string name="menu_gallery">temp</string>
+    <string name="menu_slideshow">temp</string>
+    <string name="action_settings">Options</string>
+    <string name="all_platforms">Toute les platformes</string>
+    <string name="goals">Buts</string>
+    <string name="wins">Victoires</string>
+    <string name="mvp">Mvp</string>
+    <string name="saves">Sauvetages</string>
+    <string name="assists">Assistes</string>
+    <string name="shots">Tirs</string>
+    <string name="goal_shot_ratio">Buts/Tirs ratio</string>
+    <string name="trn_score">TRN Score</string>
+    <string name="season_reward_level">Niveau de récompense de saison</string>
+    <string name="season_reward_wins">La récompense de saison gagné</string>
+    <string name="trn_rating">Evaluation TRN</string>
+</resources>

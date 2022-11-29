@@ -9,9 +9,10 @@ interface RocketLeagueApi {
     fun getLeaderBoard(
         @Query("type") type: String,
         @Query("platform") platform: String,
-        @Query("board") board: String,
+        @Query("board") board: String?,
         @Query("playlist") playlist: Int?,
         @Query("skip") skip: Int,
-        @Query("take") take: Int
-    ): Call<LeaderBoard>;
+        @Query("take") take: Int,
+        @Query("season") season: Int?
+    ): Call<LeaderBoard>
 }

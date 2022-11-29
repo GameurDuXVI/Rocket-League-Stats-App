@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/leaderboard_rank"
+        android:id="@+id/leaderboard_stats_rank"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -19,26 +19,26 @@
         tools:text="#1"/>
 
     <ImageView
-        android:id="@+id/leaderboard_icon"
+        android:id="@+id/leaderboard_stats_icon"
         android:layout_width="wrap_content"
         android:layout_height="28dp"
         android:maxWidth="28dp"
         android:adjustViewBounds="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/leaderboard_rank"/>
+        app:layout_constraintLeft_toRightOf="@id/leaderboard_stats_rank"/>
 
     <TextView
-        android:id="@+id/leaderboard_name"
+        android:id="@+id/leaderboard_stats_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:textSize="20dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/leaderboard_icon"
+        app:layout_constraintLeft_toRightOf="@id/leaderboard_stats_icon"
         tools:text="Bobby"/>
 
     <TextView
-        android:id="@+id/leaderboard_value"
+        android:id="@+id/leaderboard_stats_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"

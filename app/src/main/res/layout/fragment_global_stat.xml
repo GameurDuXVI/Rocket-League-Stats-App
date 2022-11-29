@@ -4,31 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.global.stats.GlobalStatsFragment">
 
     <Spinner
-        android:id="@+id/home_platform_spinner"
+        android:id="@+id/global_stats_platform_spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/home_board_spinner"
+        app:layout_constraintRight_toLeftOf="@id/global_stats_board_spinner"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/home_board_spinner"
+        android:id="@+id/global_stats_board_spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        app:layout_constraintLeft_toRightOf="@id/home_platform_spinner"
+        app:layout_constraintLeft_toRightOf="@id/global_stats_platform_spinner"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/home_listview"
+    <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/home_platform_spinner"
+        app:layout_constraintTop_toBottomOf="@id/global_stats_platform_spinner"
+        />
+
+    <ListView
+        android:id="@+id/global_stats_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/global_stats_platform_spinner"
         app:layout_constraintBottom_toBottomOf="parent"
-         />
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

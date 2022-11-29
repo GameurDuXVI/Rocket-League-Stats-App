@@ -1,4 +1,4 @@
-package be.arnaud.rocketleaguestats.ui.home
+package be.arnaud.rocketleaguestats.ui.global.adapters
 
 import android.content.Context
 import android.view.LayoutInflater

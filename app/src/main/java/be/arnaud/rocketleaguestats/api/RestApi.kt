@@ -20,7 +20,7 @@ object RestApi {
             rocketLeagueApi = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(MoshiConverterFactory.create())
-                .build().create(RocketLeagueApi::class.java);
+                .build().create(RocketLeagueApi::class.java)
         }
         return rocketLeagueApi!!
     }
@@ -53,13 +53,22 @@ object RestApi {
         board: LeaderBoard.Board,
         platform: Platform,
         playlist: PlayList,
+        season: Season,
         page: Int,
         callback: (leaderBoard: LeaderBoard?) -> Unit
     ) {
         val maxPerPage = 100
         val toSkip = if (page - 1 >= 0) page - 1 else 0
         val service = getRocketLeagueApi()
-        val call = service.getLeaderBoard(type.typeName, platform.typeName, board.typeName, if (playlist == PlayList.NONE) null else playlist.id, toSkip * maxPerPage, maxPerPage)
+        val call = service.getLeaderBoard(
+            type.typeName,
+            platform.typeName,
+            if (board == LeaderBoard.Board.NONE) null else board.typeName,
+            if (playlist == PlayList.NONE) null else playlist.id,
+            toSkip * maxPerPage,
+            maxPerPage,
+            if (season == Season.NONE) null else season.id
+        )
         call(call, callback)
     }
 
@@ -69,6 +78,32 @@ object RestApi {
         page: Int,
         callback: (leaderBoard: LeaderBoard?) -> Unit
     ) {
-        getLeaderBoard(LeaderBoard.Type.STATS, board, platform, PlayList.NONE, page, callback)
+        getLeaderBoard(
+            LeaderBoard.Type.STATS,
+            board,
+            platform,
+            PlayList.NONE,
+            Season.NONE,
+            page,
+            callback
+        )
+    }
+
+    fun getRankingLeaderBoard(
+        platform: Platform,
+        season: Season,
+        playlist: PlayList,
+        page: Int,
+        callback: (leaderBoard: LeaderBoard?) -> Unit
+    ) {
+        getLeaderBoard(
+            LeaderBoard.Type.PLAYLIST,
+            LeaderBoard.Board.NONE,
+            platform,
+            playlist,
+            season,
+            page,
+            callback
+        )
     }
 }

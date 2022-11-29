@@ -1,5 +1,6 @@
 package be.arnaud.rocketleaguestats.api
 
+import be.arnaud.rocketleaguestats.api.search.SearchData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -12,22 +13,29 @@ import retrofit2.converter.moshi.MoshiConverterFactory
  * @source https://medium.com/android-news/kotlin-coroutines-and-retrofit-e0702d0b8e8f
  */
 object RestApi {
-    private const val BASE_URL = "https://api.tracker.gg/api/v1/rocket-league/standard/"
-    private var rocketLeagueApi: RocketLeagueApi? = null
+    private var rocketLeagueApiV1: RocketLeagueApiV1? = null
+    private var rocketLeagueApiV2: RocketLeagueApiV2? = null
 
-    private fun getRocketLeagueApi(): RocketLeagueApi {
-        if (rocketLeagueApi == null) {
-            rocketLeagueApi = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(MoshiConverterFactory.create())
-                .build().create(RocketLeagueApi::class.java)
+    private fun getRocketLeagueApiV1(): RocketLeagueApiV1 {
+        if (rocketLeagueApiV1 == null) {
+            rocketLeagueApiV1 = Retrofit.Builder().baseUrl("https://api.tracker.gg/api/v1/rocket-league/standard/")
+                .addConverterFactory(MoshiConverterFactory.create()).build()
+                .create(RocketLeagueApiV1::class.java)
         }
-        return rocketLeagueApi!!
+        return rocketLeagueApiV1!!
+    }
+
+    private fun getRocketLeagueApiV2(): RocketLeagueApiV2 {
+        if (rocketLeagueApiV2 == null) {
+            rocketLeagueApiV2 = Retrofit.Builder().baseUrl("https://api.tracker.gg/api/v2/rocket-league/standard/")
+                .addConverterFactory(MoshiConverterFactory.create()).build()
+                .create(RocketLeagueApiV2::class.java)
+        }
+        return rocketLeagueApiV2!!
     }
 
     private fun <T> call(
-        call: Call<T>,
-        callback: (obj: T?) -> Unit
+        call: Call<T>, callback: (obj: T?) -> Unit
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -59,8 +67,7 @@ object RestApi {
     ) {
         val maxPerPage = 100
         val toSkip = if (page - 1 >= 0) page - 1 else 0
-        val service = getRocketLeagueApi()
-        val call = service.getLeaderBoard(
+        val call = getRocketLeagueApiV1().getLeaderBoard(
             type.typeName,
             platform.typeName,
             if (board == LeaderBoard.Board.NONE) null else board.typeName,
@@ -79,13 +86,7 @@ object RestApi {
         callback: (leaderBoard: LeaderBoard?) -> Unit
     ) {
         getLeaderBoard(
-            LeaderBoard.Type.STATS,
-            board,
-            platform,
-            PlayList.NONE,
-            Season.NONE,
-            page,
-            callback
+            LeaderBoard.Type.STATS, board, platform, PlayList.NONE, Season.NONE, page, callback
         )
     }
 
@@ -105,5 +106,41 @@ object RestApi {
             page,
             callback
         )
+    }
+
+    private fun search(
+        platform: Platform,
+        query: String,
+        callback: (search: Search?) -> Unit
+    ) {
+        val call = getRocketLeagueApiV2().search(platform.typeName, query, true)
+        call(call, callback)
+    }
+
+    fun search(
+        query: String,
+        callback: (data: List<SearchData>) -> Unit
+    ) {
+        if (query.isEmpty()) {
+            callback(emptyList())
+            return
+        }
+
+        var completed = 0
+        val data = ArrayList<SearchData>()
+        val platforms = Platform.values().filter { platform -> platform != Platform.ALL }
+        for (platform in platforms) {
+            search(platform, query) { search ->
+                completed++
+
+                if (search != null) {
+                    data.addAll(search.data)
+                }
+
+                if (completed == platforms.size) {
+                    callback(data)
+                }
+            }
+        }
     }
 }

@@ -12,14 +12,12 @@
         tools:layout="@layout/fragment_global" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="be.arnaud.rocketleaguestats.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="be.arnaud.rocketleaguestats.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_search"
+        android:name="be.arnaud.rocketleaguestats.ui.SearchFragment"
+        android:label="@string/menu_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_nav_search_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 </navigation>

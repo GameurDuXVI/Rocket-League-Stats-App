@@ -40,4 +40,6 @@
     <string name="ranking_season_21">Saison 7 (21)</string>
     <string name="ranking_season_22">Saison 8 (22)</string>
     <string name="no_data">Aucune donnée n\'es trouvé</string>
+    <string name="more_chars">Le pseudo doit être minimum de 3 charactères</string>
+    <string name="menu_search">Chercher</string>
 </resources>

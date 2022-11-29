@@ -40,4 +40,6 @@
     <string name="ranking_season_21">Seizoen 7 (21)</string>
     <string name="ranking_season_22">Seizoen 8 (22)</string>
     <string name="no_data">Geen data is gevonden</string>
+    <string name="more_chars">The gebruikersnaam moet minstens 3 karakters lang zijn</string>
+    <string name="menu_search">Zoeken</string>
 </resources>

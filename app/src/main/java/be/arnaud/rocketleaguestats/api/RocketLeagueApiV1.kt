@@ -4,7 +4,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface RocketLeagueApi {
+interface RocketLeagueApiV1 {
     @GET("leaderboards")
     fun getLeaderBoard(
         @Query("type") type: String,

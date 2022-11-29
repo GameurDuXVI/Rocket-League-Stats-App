@@ -8,19 +8,53 @@
     <string name="nav_header_desc" translatable="false">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Global</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_global">Global</string>
+    <string name="menu_gallery" translatable="false">Gallery</string>
+    <string name="menu_slideshow" translatable="false">Slideshow</string>
     <string name="all_platforms">All platforms</string>
-    <string name="goals">Goals</string>
-    <string name="wins">Wins</string>
-    <string name="mvp">Mvp\'s</string>
-    <string name="saves">Saves</string>
-    <string name="assists">Assists</string>
-    <string name="shots">Shots</string>
-    <string name="goal_shot_ratio">Goals/Shot ratio</string>
-    <string name="trn_score">TRN Score</string>
-    <string name="season_reward_level">Season reward level</string>
-    <string name="season_reward_wins">Season reward wins</string>
-    <string name="trn_rating">TRN rating</string>
+    <string name="stats_goals">Goals</string>
+    <string name="stats_wins">Wins</string>
+    <string name="stats_mvp">Mvp\'s</string>
+    <string name="stats_saves">Saves</string>
+    <string name="stats_assists">Assists</string>
+    <string name="stats_shots">Shots</string>
+    <string name="stats_goal_shot_ratio">Goals/Shot ratio</string>
+    <string name="stats_trn_score">TRN Score</string>
+    <string name="stats_season_reward_level">Season reward level</string>
+    <string name="stats_season_reward_wins">Season reward wins</string>
+    <string name="stats_trn_rating">TRN rating</string>
+    <string name="tab_stats">Stats</string>
+    <string name="tab_ranking">Ranking</string>
+    <string name="ranking_season_1">Season 1</string>
+    <string name="ranking_season_2">Season 2</string>
+    <string name="ranking_season_3">Season 3</string>
+    <string name="ranking_season_4">Season 4</string>
+    <string name="ranking_season_5">Season 5</string>
+    <string name="ranking_season_6">Season 6</string>
+    <string name="ranking_season_7">Season 7</string>
+    <string name="ranking_season_8">Season 8</string>
+    <string name="ranking_season_9">Season 9</string>
+    <string name="ranking_season_10">Season 10</string>
+    <string name="ranking_season_11">Season 11</string>
+    <string name="ranking_season_12">Season 12</string>
+    <string name="ranking_season_13">Season 13</string>
+    <string name="ranking_season_14">Season 14</string>
+    <string name="ranking_season_15">Season 1 (15)</string>
+    <string name="ranking_season_16">Season 2 (16)</string>
+    <string name="ranking_season_17">Season 3 (17)</string>
+    <string name="ranking_season_18">Season 4 (18)</string>
+    <string name="ranking_season_19">Season 5 (19)</string>
+    <string name="ranking_season_20">Season 6 (20)</string>
+    <string name="ranking_season_21">Season 7 (21)</string>
+    <string name="ranking_season_22">Season 8 (22)</string>
+    <string name="ranking_unranked" translatable="false">Unranked</string>
+    <string name="ranking_hoops" translatable="false">Hoops</string>
+    <string name="ranking_rumble" translatable="false">Rumble</string>
+    <string name="ranking_drop_shot" translatable="false">Drop shot</string>
+    <string name="ranking_snow_day" translatable="false">Snow Day</string>
+    <string name="ranking_tournament_matches" translatable="false">Tournament matches</string>
+    <string name="ranking_ranked1v1" translatable="false">Ranked 1v1</string>
+    <string name="ranking_ranked2v2" translatable="false">Ranked 2v2</string>
+    <string name="ranking_ranked3v3" translatable="false">Ranked 3v3</string>
+    <string name="no_data">No data has been found</string>
 </resources>

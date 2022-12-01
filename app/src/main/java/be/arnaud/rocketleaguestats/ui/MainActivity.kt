@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import be.arnaud.rocketleaguestats.R
 import be.arnaud.rocketleaguestats.databinding.ActivityMainBinding
+import be.arnaud.rocketleaguestats.ui.search.SearchFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.appBarMain.searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (hasFocus && getSearchFragment() == null) {
-                controller.navigate(R.id.nav_search)
+                navigate(R.id.nav_search)
             }
         }
 
@@ -88,5 +89,13 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    fun navigate(navigationId: Int) {
+        controller.navigate(navigationId)
+    }
+
+    fun navigate(navigationId: Int, bundle: Bundle?) {
+        controller.navigate(navigationId, bundle)
     }
 }

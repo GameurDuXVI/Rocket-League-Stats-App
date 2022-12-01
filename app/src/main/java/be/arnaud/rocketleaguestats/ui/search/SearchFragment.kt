@@ -1,4 +1,4 @@
-package be.arnaud.rocketleaguestats.ui
+package be.arnaud.rocketleaguestats.ui.search
 
 import android.os.Bundle
 import android.view.LayoutInflater

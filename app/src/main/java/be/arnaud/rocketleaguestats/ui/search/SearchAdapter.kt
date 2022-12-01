@@ -1,4 +1,4 @@
-package be.arnaud.rocketleaguestats.ui
+package be.arnaud.rocketleaguestats.ui.search
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import android.widget.TextView
 import be.arnaud.rocketleaguestats.R
 import be.arnaud.rocketleaguestats.api.search.SearchData
 
-class SearchAdapter(context: Context, private val items: List<SearchData>) :
+class SearchAdapter(context: Context, items: List<SearchData>) :
     ArrayAdapter<SearchData>(
         context,
         R.id.leaderboard_stats_name,

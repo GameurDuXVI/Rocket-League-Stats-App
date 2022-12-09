@@ -1,4 +1,4 @@
-package be.arnaud.rocketleaguestats.api.search
+package be.arnaud.rocketleaguestats.api.models.search
 
 data class SearchData(
     val platformId: Int,

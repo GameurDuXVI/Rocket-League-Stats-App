@@ -25,5 +25,6 @@ enum class Season(val id: Int, val resourceId: Int) {
     SEASON_19(19, R.string.ranking_season_19),
     SEASON_20(20, R.string.ranking_season_20),
     SEASON_21(21, R.string.ranking_season_21),
-    SEASON_22(22, R.string.ranking_season_22)
+    SEASON_22(22, R.string.ranking_season_22),
+    SEASON_23(23, R.string.ranking_season_23)
 }

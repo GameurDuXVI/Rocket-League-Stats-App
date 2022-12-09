@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import be.arnaud.rocketleaguestats.R
-import be.arnaud.rocketleaguestats.api.LeaderBoard
+import be.arnaud.rocketleaguestats.api.models.LeaderBoard
 
 
 class BoardSpinnerAdapter(context: Context) :

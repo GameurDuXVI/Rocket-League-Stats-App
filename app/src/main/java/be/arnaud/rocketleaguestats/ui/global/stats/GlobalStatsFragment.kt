@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import be.arnaud.rocketleaguestats.R
 import be.arnaud.rocketleaguestats.api.RestApi
 import be.arnaud.rocketleaguestats.databinding.FragmentGlobalStatBinding
+import be.arnaud.rocketleaguestats.ui.MainActivity
 import be.arnaud.rocketleaguestats.ui.global.adapters.BoardSpinnerAdapter
 import be.arnaud.rocketleaguestats.ui.global.adapters.PlatformSpinnerAdapter
 import be.arnaud.rocketleaguestats.ui.global.adapters.StatsLeaderBoardAdapter
@@ -58,6 +60,18 @@ class GlobalStatsFragment : Fragment(), AbsListView.OnScrollListener {
             }
         }
 
+        binding.globalStatsListview.onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, position, _ ->
+                if (vlAdapter == null) {
+                    return@OnItemClickListener
+                }
+                val item = vlAdapter!!.getItem(position)!!
+                val bundle = Bundle()
+                bundle.putString("identifier", item.owner.metadata.platformUserIdentifier)
+                bundle.putString("platform", item.owner.metadata.platformSlug)
+                (activity as MainActivity).navigate(R.id.nav_individual, bundle)
+            }
+
         // Observing view model for changes
         viewModel.platform.observe(viewLifecycleOwner) { fetch() }
         viewModel.board.observe(viewLifecycleOwner) { fetch() }
@@ -72,7 +86,6 @@ class GlobalStatsFragment : Fragment(), AbsListView.OnScrollListener {
         super.onDestroyView()
         _binding = null
     }
-
 
     override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
         // Nothing to do

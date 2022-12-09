@@ -1,7 +1,7 @@
 package be.arnaud.rocketleaguestats.ui.global.stats
 
 import androidx.lifecycle.ViewModel
-import be.arnaud.rocketleaguestats.api.LeaderBoard
+import be.arnaud.rocketleaguestats.api.models.LeaderBoard
 import be.arnaud.rocketleaguestats.api.Platform
 import be.arnaud.rocketleaguestats.utils.ExtendedLiveData
 

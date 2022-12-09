@@ -14,17 +14,17 @@
         android:layout_marginLeft="10dp"
         android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/search_icon"
+        app:layout_constraintLeft_toLeftOf="parent"
         tools:text="Bobby"/>
 
-    <ImageView
-        android:id="@+id/search_icon"
+    <LinearLayout
+        android:id="@+id/search_platform_icon_container"
         android:layout_width="wrap_content"
-        android:layout_height="28dp"
-        android:maxWidth="28dp"
-        android:adjustViewBounds="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/search_name"
-        />
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toRightOf="@id/search_name"
+        app:layout_constraintTop_toTopOf="@id/search_name"
+        app:layout_constraintBottom_toBottomOf="@id/search_name"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

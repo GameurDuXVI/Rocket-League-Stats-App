@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import be.arnaud.rocketleaguestats.R
 import be.arnaud.rocketleaguestats.api.RestApi
 import be.arnaud.rocketleaguestats.databinding.FragmentGlobalRankingBinding
+import be.arnaud.rocketleaguestats.ui.MainActivity
 import be.arnaud.rocketleaguestats.ui.global.adapters.PlatformSpinnerAdapter
 import be.arnaud.rocketleaguestats.ui.global.adapters.PlayListSpinnerAdapter
 import be.arnaud.rocketleaguestats.ui.global.adapters.RankingLeaderBoardAdapter
@@ -17,6 +19,7 @@ import be.arnaud.rocketleaguestats.ui.global.adapters.SeasonSpinnerAdapter
 import be.arnaud.rocketleaguestats.ui.global.listeners.PlatformItemSelectedListener
 import be.arnaud.rocketleaguestats.ui.global.listeners.PlayListItemSelectedListener
 import be.arnaud.rocketleaguestats.ui.global.listeners.SeasonItemSelectedListener
+import be.arnaud.rocketleaguestats.ui.search.SearchAdapter
 
 class GlobalRankingFragment : Fragment(), AbsListView.OnScrollListener {
 
@@ -72,6 +75,18 @@ class GlobalRankingFragment : Fragment(), AbsListView.OnScrollListener {
                 binding.globalRankingListview.adapter = vlAdapter
             }
         }
+
+        binding.globalRankingListview.onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, position, _ ->
+                if (vlAdapter == null) {
+                    return@OnItemClickListener
+                }
+                val item = vlAdapter!!.getItem(position)!!
+                val bundle = Bundle()
+                bundle.putString("identifier", item.owner.metadata.platformUserIdentifier)
+                bundle.putString("platform", item.owner.metadata.platformSlug)
+                (activity as MainActivity).navigate(R.id.nav_individual, bundle)
+            }
 
         // Observing view model for changes
         viewModel.platform.observe(viewLifecycleOwner) { fetch() }

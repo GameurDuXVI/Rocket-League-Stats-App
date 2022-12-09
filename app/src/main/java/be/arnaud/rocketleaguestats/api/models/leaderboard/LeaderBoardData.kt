@@ -1,4 +1,4 @@
-package be.arnaud.rocketleaguestats.api.leaderboard
+package be.arnaud.rocketleaguestats.api.models.leaderboard
 
 data class LeaderBoardData(
     var id: String,

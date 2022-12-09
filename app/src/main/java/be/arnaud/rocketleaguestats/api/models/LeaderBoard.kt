@@ -1,7 +1,7 @@
-package be.arnaud.rocketleaguestats.api
+package be.arnaud.rocketleaguestats.api.models
 
 import be.arnaud.rocketleaguestats.R
-import be.arnaud.rocketleaguestats.api.leaderboard.LeaderBoardData
+import be.arnaud.rocketleaguestats.api.models.leaderboard.LeaderBoardData
 
 data class LeaderBoard(
     var data: LeaderBoardData

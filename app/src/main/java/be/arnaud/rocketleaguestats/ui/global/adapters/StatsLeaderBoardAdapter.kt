@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import be.arnaud.rocketleaguestats.R
-import be.arnaud.rocketleaguestats.api.leaderboard.LeaderBoardItem
+import be.arnaud.rocketleaguestats.api.models.leaderboard.LeaderBoardItem
 import kotlin.math.roundToLong
 
 

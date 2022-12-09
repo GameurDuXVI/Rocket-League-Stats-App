@@ -1,6 +1,10 @@
 package be.arnaud.rocketleaguestats.api
 
-import be.arnaud.rocketleaguestats.api.search.SearchData
+import be.arnaud.rocketleaguestats.api.models.LeaderBoard
+import be.arnaud.rocketleaguestats.api.models.Profile
+import be.arnaud.rocketleaguestats.api.models.ProfileSegmentData
+import be.arnaud.rocketleaguestats.api.models.Search
+import be.arnaud.rocketleaguestats.api.models.search.SearchData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -142,5 +146,31 @@ object RestApi {
                 }
             }
         }
+    }
+
+    fun getProfile(
+        name: String,
+        platform: Platform,
+        callback: (profile: Profile?) -> Unit
+    ) {
+        val call = getRocketLeagueApiV2().getProfile(
+            name,
+            platform.typeName
+        )
+        call(call, callback)
+    }
+
+    fun getProfileSegment(
+        identifier: String,
+        platform: Platform,
+        season: Season,
+        callback: (profile: ProfileSegmentData?) -> Unit
+    ) {
+        val call = getRocketLeagueApiV2().getProfileSegment(
+            identifier,
+            platform.typeName,
+            season.id
+        )
+        call(call, callback)
     }
 }

@@ -1,5 +1,6 @@
 package be.arnaud.rocketleaguestats.api
 
+import be.arnaud.rocketleaguestats.api.models.LeaderBoard
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

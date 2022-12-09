@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import be.arnaud.rocketleaguestats.api.PlayList
+import be.arnaud.rocketleaguestats.api.Rank
 import be.arnaud.rocketleaguestats.api.models.profilesegment.ProfileSegment
 import be.arnaud.rocketleaguestats.databinding.ItemIndividualRankingBinding
 import kotlinx.coroutines.CoroutineScope
@@ -38,21 +39,8 @@ class IndividualRankingRecycleViewAdapter(val fragment: Fragment, val data: List
         holder.binding.individualRankingDivision.text = item.stats.division.metadata.name
         holder.binding.individualRankingValue.text = item.stats.rating.value.toString()
 
-        CoroutineScope(Dispatchers.IO).launch {
-            var url: String? = item.stats.tier.metadata.iconUrl ?: return@launch
-            var bitmap: Bitmap? = null
-            try {
-                val inputStream: InputStream = URL(url).openStream()
-                bitmap = BitmapFactory.decodeStream(inputStream)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            withContext(fragment.viewLifecycleOwner.lifecycleScope.coroutineContext) {
-                if (bitmap != null) {
-                    holder.binding.individualRankingIcon.setImageBitmap(bitmap)
-                }
-            }
-        }
+        val rank = Rank.fromId(item.stats.tier.value)
+        holder.binding.individualRankingIcon.setImageResource(rank.drawableId)
     }
 
     override fun getItemCount(): Int {

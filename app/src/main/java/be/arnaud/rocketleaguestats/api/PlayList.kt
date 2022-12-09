@@ -7,6 +7,7 @@ enum class PlayList(val id: Int, val resourceId: Int) {
     RANKED1v1(10, R.string.ranking_ranked1v1),
     RANKED2v2(11, R.string.ranking_ranked2v2),
     RANKED3v3(13, R.string.ranking_ranked3v3),
+    UN_RANKED_OLD(12, R.string.ranking_unranked),
     UN_RANKED(0, R.string.ranking_unranked),
     HOOPS(27, R.string.ranking_hoops),
     RUMBLE(28, R.string.ranking_rumble),

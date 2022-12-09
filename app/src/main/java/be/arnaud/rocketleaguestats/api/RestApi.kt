@@ -71,11 +71,16 @@ object RestApi {
     ) {
         val maxPerPage = 100
         val toSkip = if (page - 1 >= 0) page - 1 else 0
+        val finalPlaylist = when(playlist) {
+            PlayList.NONE -> null
+            PlayList.UN_RANKED -> if (season.id <= 14) PlayList.UN_RANKED_OLD.id else playlist.id
+            else -> playlist.id
+        }
         val call = getRocketLeagueApiV1().getLeaderBoard(
             type.typeName,
             platform.typeName,
             if (board == LeaderBoard.Board.NONE) null else board.typeName,
-            if (playlist == PlayList.NONE) null else playlist.id,
+            finalPlaylist,
             toSkip * maxPerPage,
             maxPerPage,
             if (season == Season.NONE) null else season.id

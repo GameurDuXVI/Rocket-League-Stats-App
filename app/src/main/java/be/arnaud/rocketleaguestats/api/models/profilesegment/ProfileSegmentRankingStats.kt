@@ -1,6 +1,6 @@
 package be.arnaud.rocketleaguestats.api.models.profilesegment
 
-data class ProfileSegmentStats(
+data class ProfileSegmentRankingStats(
     val tier: ProfileSegmentStat,
     val division: ProfileSegmentStat,
     val matchesPlayed: ProfileSegmentStat,

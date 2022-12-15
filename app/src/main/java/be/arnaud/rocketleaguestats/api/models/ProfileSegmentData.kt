@@ -1,9 +1,9 @@
 package be.arnaud.rocketleaguestats.api.models
 
-import be.arnaud.rocketleaguestats.api.models.profilesegment.ProfileSegment
+import be.arnaud.rocketleaguestats.api.models.profilesegment.ProfileRankingSegment
 
 data class ProfileSegmentData(
-    val data: List<ProfileSegment>
+    val data: List<ProfileRankingSegment>
 ) {
 
 }

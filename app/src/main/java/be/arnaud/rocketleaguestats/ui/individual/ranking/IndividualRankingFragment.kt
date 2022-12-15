@@ -46,7 +46,7 @@ class IndividualRankingFragment(val identifier: String, val platform: Platform) 
             }
         }
 
-        viewModel.season.observe(viewLifecycleOwner){fetch()}
+        viewModel.season.observe(viewLifecycleOwner){ fetch() }
 
         fetch()
         return binding.root

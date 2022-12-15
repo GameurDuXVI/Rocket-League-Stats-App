@@ -84,7 +84,7 @@ class IndividualFragment : Fragment() {
             }
         }
 
-        binding.individualViewPager.adapter = AnyPagerAdapter(this, listOf(IndividualRankingFragment(viewModel.identifier, viewModel.platform), IndividualStatsFragment()))
+        binding.individualViewPager.adapter = AnyPagerAdapter(this, listOf(IndividualRankingFragment(viewModel.identifier, viewModel.platform), IndividualStatsFragment(viewModel.identifier, viewModel.platform)))
         binding.individualViewPager.offscreenPageLimit = 1
 
         TabLayoutMediator(binding.individualTabLayout, binding.individualViewPager) { tab, position ->

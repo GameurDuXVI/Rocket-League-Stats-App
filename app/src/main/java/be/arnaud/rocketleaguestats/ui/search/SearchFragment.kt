@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import be.arnaud.rocketleaguestats.R
-import be.arnaud.rocketleaguestats.api.Platform
 import be.arnaud.rocketleaguestats.api.RestApi
 import be.arnaud.rocketleaguestats.databinding.FragmentSearchBinding
 import be.arnaud.rocketleaguestats.ui.MainActivity
@@ -33,15 +33,6 @@ class SearchFragment : Fragment() {
 
         (activity as MainActivity).setSearchQuery(currentQuery)
 
-        binding.searchListView.onItemClickListener =
-            AdapterView.OnItemClickListener { _, _, position, _ ->
-                val item = (binding.searchListView.adapter as SearchAdapter).getItem(position)!!
-                val bundle = Bundle()
-                bundle.putString("identifier", item.platformUserIdentifier)
-                bundle.putString("platform", item.platformSlug)
-                (activity as MainActivity).navigate(R.id.nav_individual, bundle)
-            }
-
         return binding.root
     }
 
@@ -52,7 +43,12 @@ class SearchFragment : Fragment() {
 
     @MainThread
     fun query(query: String) {
-        binding.searchListView.adapter = SearchAdapter(activity!!, emptyList())
+        binding.individualStatsRecycleView.adapter =
+            SearchAdapter(this, emptyList(), null)
+        if (binding.individualStatsRecycleView.layoutManager == null) {
+            binding.individualStatsRecycleView.layoutManager =
+                LinearLayoutManager(requireContext())
+        }
 
         if (query.isEmpty()) {
             return
@@ -66,7 +62,13 @@ class SearchFragment : Fragment() {
                 } else {
                     removeHeader()
                 }
-                binding.searchListView.adapter = SearchAdapter(activity!!, data)
+                binding.individualStatsRecycleView.adapter =
+                    SearchAdapter(this, data) {
+                        val bundle = Bundle()
+                        bundle.putString("identifier", it.platformUserIdentifier)
+                        bundle.putString("platform", it.platformSlug)
+                        (activity as MainActivity).navigate(R.id.nav_individual, bundle)
+                    }
             }
         }
     }

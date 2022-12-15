@@ -1,25 +1,15 @@
 package be.arnaud.rocketleaguestats.ui.individual.ranking
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import be.arnaud.rocketleaguestats.api.PlayList
 import be.arnaud.rocketleaguestats.api.Rank
-import be.arnaud.rocketleaguestats.api.models.profilesegment.ProfileSegment
+import be.arnaud.rocketleaguestats.api.models.profilesegment.ProfileRankingSegment
 import be.arnaud.rocketleaguestats.databinding.ItemIndividualRankingBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.io.InputStream
-import java.net.URL
 
-class IndividualRankingRecycleViewAdapter(val fragment: Fragment, val data: List<ProfileSegment>): RecyclerView.Adapter<IndividualRankingRecycleViewAdapter.ViewHolder>() {
+class IndividualRankingRecycleViewAdapter(val fragment: Fragment, val data: List<ProfileRankingSegment>): RecyclerView.Adapter<IndividualRankingRecycleViewAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemIndividualRankingBinding): RecyclerView.ViewHolder(binding.root) {
     }
@@ -37,9 +27,9 @@ class IndividualRankingRecycleViewAdapter(val fragment: Fragment, val data: List
         }
 
         holder.binding.individualRankingDivision.text = item.stats.division.metadata.name
-        holder.binding.individualRankingValue.text = item.stats.rating.value.toString()
+        holder.binding.individualRankingValue.text = item.stats.rating.value.toInt().toString()
 
-        val rank = Rank.fromId(item.stats.tier.value)
+        val rank = Rank.fromId(item.stats.tier.value.toInt())
         holder.binding.individualRankingIcon.setImageResource(rank.drawableId)
     }
 

@@ -7,7 +7,7 @@ data class ProfileSegmentStat(
     val displayCategory: String,
     val category: String,
     val metadata: ProfileSegmentStatMetaData,
-    val value: Int
+    val value: Double
 ) {
 
 }

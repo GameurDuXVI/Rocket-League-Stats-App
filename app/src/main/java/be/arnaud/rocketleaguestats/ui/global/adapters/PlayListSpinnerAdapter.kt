@@ -11,7 +11,7 @@ import be.arnaud.rocketleaguestats.api.PlayList
 
 
 class PlayListSpinnerAdapter(context: Context) :
-    ArrayAdapter<PlayList>(context, R.id.spinner_platform_text, PlayList.values().filter { playList -> playList != PlayList.NONE }) {
+    ArrayAdapter<PlayList>(context, R.id.spinner_platform_text, PlayList.values().filter { playList -> playList != PlayList.NONE && playList != PlayList.UN_RANKED_OLD }) {
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         return initView(position, convertView, parent)

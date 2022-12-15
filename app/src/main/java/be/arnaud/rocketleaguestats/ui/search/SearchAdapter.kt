@@ -1,33 +1,45 @@
 package be.arnaud.rocketleaguestats.ui.search
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import be.arnaud.rocketleaguestats.R
-import be.arnaud.rocketleaguestats.api.search.SearchData
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import be.arnaud.rocketleaguestats.api.Platform
+import be.arnaud.rocketleaguestats.api.models.search.SearchData
+import be.arnaud.rocketleaguestats.databinding.ItemIndividualStatsBinding
+import be.arnaud.rocketleaguestats.databinding.ItemSearchBinding
 
-class SearchAdapter(context: Context, items: List<SearchData>) :
-    ArrayAdapter<SearchData>(
-        context,
-        R.id.leaderboard_stats_name,
-        items.distinctBy { searchData -> searchData.platformUserIdentifier }) {
 
-    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-        return initView(position, convertView, parent)
+class SearchAdapter(val fragment: Fragment, val data: List<SearchData>, private val callback: ((obj: SearchData) -> Unit)?): RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+
+    class ViewHolder: RecyclerView.ViewHolder {
+        val binding: ItemSearchBinding
+        constructor(binding: ItemSearchBinding, callback: (obj: Int) -> Unit): super(binding.root){
+            this.binding = binding
+            binding.root.setOnClickListener {
+                callback(adapterPosition)
+            }
+        }
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        return initView(position, convertView, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(ItemSearchBinding.inflate(LayoutInflater.from(fragment.requireContext()), parent, false)) {
+            callback?.let { it1 -> it1(data[it]) }
+        }
     }
 
-    private fun initView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view: View = convertView?: LayoutInflater.from(context).inflate(R.layout.item_search, parent, false)
-        val currentItem = getItem(position)!!
-        view.findViewById<TextView>(R.id.search_name)?.text = currentItem.platformUserHandle
-        view.tag = currentItem
-        return view
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = data[position]
+        val platform = Platform.fromType(item.platformSlug)
+
+        holder.binding.searchName.text = item.platformUserHandle
+        if (platform != null) {
+            holder.binding.searchPlatformIcon.setImageResource(platform.drawableResource)
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return data.size
     }
 }

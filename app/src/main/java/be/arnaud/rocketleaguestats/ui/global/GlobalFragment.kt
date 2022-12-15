@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import be.arnaud.rocketleaguestats.databinding.FragmentGlobalBinding
+import be.arnaud.rocketleaguestats.ui.adapter.AnyPagerAdapter
+import be.arnaud.rocketleaguestats.ui.global.ranking.GlobalRankingFragment
+import be.arnaud.rocketleaguestats.ui.global.stats.GlobalStatsFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -19,14 +22,16 @@ class GlobalFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        println("view create")
         _binding = FragmentGlobalBinding.inflate(inflater, container, false)
 
-        binding.globalStatsViewPager.adapter = GlobalPagerAdapter(this, 2)
+        binding.globalStatsViewPager.adapter = AnyPagerAdapter(this, listOf(GlobalRankingFragment(), GlobalStatsFragment()))
+        binding.globalStatsViewPager.offscreenPageLimit = 1
 
         TabLayoutMediator(binding.globalStatsTabLayout, binding.globalStatsViewPager) { tab, position ->
             tab.text = when(position){
-                0 -> "Stats"
-                else -> "Ranking"
+                0 -> "Ranking"
+                else -> "Stats"
             }
         }.attach()
 

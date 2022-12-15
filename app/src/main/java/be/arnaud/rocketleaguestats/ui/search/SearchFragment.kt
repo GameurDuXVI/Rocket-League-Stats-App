@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import be.arnaud.rocketleaguestats.R
 import be.arnaud.rocketleaguestats.api.RestApi
 import be.arnaud.rocketleaguestats.databinding.FragmentSearchBinding
+import be.arnaud.rocketleaguestats.ui.MainActivity
+
 
 class SearchFragment : Fragment() {
 
@@ -27,12 +31,24 @@ class SearchFragment : Fragment() {
         loadingHeader = LayoutInflater.from(context).inflate(R.layout.footer_loading, null)
         noDataHeader = LayoutInflater.from(context).inflate(R.layout.footer_no_data, null)
 
+        (activity as MainActivity).setSearchQuery(currentQuery)
+
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        (activity as MainActivity).hideSearchView()
+        super.onDestroyView()
     }
 
     @MainThread
     fun query(query: String) {
-        binding.searchListView.adapter = SearchAdapter(activity!!, emptyList())
+        binding.individualStatsRecycleView.adapter =
+            SearchAdapter(this, emptyList(), null)
+        if (binding.individualStatsRecycleView.layoutManager == null) {
+            binding.individualStatsRecycleView.layoutManager =
+                LinearLayoutManager(requireContext())
+        }
 
         if (query.isEmpty()) {
             return
@@ -41,27 +57,33 @@ class SearchFragment : Fragment() {
         currentQuery = query
         RestApi.search(query) { data ->
             if (currentQuery == query) {
-                if (data.isEmpty()){
+                if (data.isEmpty()) {
                     setNoDataHeader()
                 } else {
                     removeHeader()
                 }
-                binding.searchListView.adapter = SearchAdapter(activity!!, data)
+                binding.individualStatsRecycleView.adapter =
+                    SearchAdapter(this, data) {
+                        val bundle = Bundle()
+                        bundle.putString("identifier", it.platformUserIdentifier)
+                        bundle.putString("platform", it.platformSlug)
+                        (activity as MainActivity).navigate(R.id.nav_individual, bundle)
+                    }
             }
         }
     }
 
-    private fun setLoadingHeader(){
+    private fun setLoadingHeader() {
         removeHeader()
         binding.searchHeader.addView(loadingHeader)
     }
 
-    private fun setNoDataHeader(){
+    private fun setNoDataHeader() {
         removeHeader()
         binding.searchHeader.addView(noDataHeader)
     }
 
-    private fun removeHeader(){
+    private fun removeHeader() {
         binding.searchHeader.removeAllViews()
     }
 }

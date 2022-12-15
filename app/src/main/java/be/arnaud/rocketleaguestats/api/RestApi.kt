@@ -1,6 +1,10 @@
 package be.arnaud.rocketleaguestats.api
 
-import be.arnaud.rocketleaguestats.api.search.SearchData
+import be.arnaud.rocketleaguestats.api.models.LeaderBoard
+import be.arnaud.rocketleaguestats.api.models.Profile
+import be.arnaud.rocketleaguestats.api.models.ProfileSegmentData
+import be.arnaud.rocketleaguestats.api.models.Search
+import be.arnaud.rocketleaguestats.api.models.search.SearchData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -67,11 +71,16 @@ object RestApi {
     ) {
         val maxPerPage = 100
         val toSkip = if (page - 1 >= 0) page - 1 else 0
+        val finalPlaylist = when(playlist) {
+            PlayList.NONE -> null
+            PlayList.UN_RANKED -> if (season.id <= 14) PlayList.UN_RANKED_OLD.id else playlist.id
+            else -> playlist.id
+        }
         val call = getRocketLeagueApiV1().getLeaderBoard(
             type.typeName,
             platform.typeName,
             if (board == LeaderBoard.Board.NONE) null else board.typeName,
-            if (playlist == PlayList.NONE) null else playlist.id,
+            finalPlaylist,
             toSkip * maxPerPage,
             maxPerPage,
             if (season == Season.NONE) null else season.id
@@ -142,5 +151,31 @@ object RestApi {
                 }
             }
         }
+    }
+
+    fun getProfile(
+        name: String,
+        platform: Platform,
+        callback: (profile: Profile?) -> Unit
+    ) {
+        val call = getRocketLeagueApiV2().getProfile(
+            name,
+            platform.typeName
+        )
+        call(call, callback)
+    }
+
+    fun getProfileSegment(
+        identifier: String,
+        platform: Platform,
+        season: Season,
+        callback: (profile: ProfileSegmentData?) -> Unit
+    ) {
+        val call = getRocketLeagueApiV2().getProfileSegment(
+            identifier,
+            platform.typeName,
+            season.id
+        )
+        call(call, callback)
     }
 }

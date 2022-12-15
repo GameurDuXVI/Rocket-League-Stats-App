@@ -5,18 +5,21 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import be.arnaud.rocketleaguestats.R
 import be.arnaud.rocketleaguestats.databinding.ActivityMainBinding
 import be.arnaud.rocketleaguestats.ui.search.SearchFragment
+import retrofit2.http.Query
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var controller: NavController
+    lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +31,8 @@ class MainActivity : AppCompatActivity() {
 
         controller = findNavController(R.id.nav_host_fragment_content_main)
         setupActionBarWithNavController(controller)
+
+        toolbar = binding.appBarMain.toolbar
 
         binding.appBarMain.searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (hasFocus && getSearchFragment() == null) {
@@ -42,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
 
+
             override fun onQueryTextChange(newText: String?): Boolean {
                 getSearchFragment()?.query(newText!!)
                 return false
@@ -55,11 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-
-        if (!binding.appBarMain.searchView.isIconified) {
-            binding.appBarMain.searchView.isIconified = true
-            binding.appBarMain.searchView.isIconified = true
-        }
+        //hideSearchView()
     }
 
     private fun getSearchFragment(): SearchFragment? {
@@ -77,18 +79,32 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
         /*when (item.itemId) {
             R.id.action_search -> {
                 findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.nav_search)
             }
         }*/
         return super.onOptionsItemSelected(item)
-    }
+    }*/
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    fun hideSearchView() {
+        if (!binding.appBarMain.searchView.isIconified) {
+            binding.appBarMain.searchView.isIconified = true
+            binding.appBarMain.searchView.isIconified = true
+        }
+    }
+
+    fun setSearchQuery(query: String) {
+        binding.appBarMain.searchView.post {
+            binding.appBarMain.searchView.setQuery(query, true)
+        }
+        binding.appBarMain.searchView.isIconified = false
     }
 
     fun navigate(navigationId: Int) {

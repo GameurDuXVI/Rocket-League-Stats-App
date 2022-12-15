@@ -57,14 +57,8 @@
     <string name="ranking_ranked2v2" translatable="false">Ranked 2v2</string>
     <string name="ranking_ranked3v3" translatable="false">Ranked 3v3</string>
     <string name="no_data">No data has been found</string>
-    <!-- Strings used for fragments for navigation -->
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <!-- Preference Titles -->
-
-    <!-- Messages Preferences -->
-
-    <!-- Sync Preferences -->
     <string name="more_chars">The username has to be minimum 3 symbols long</string>
     <string name="menu_search">Search</string>
+    <string name="menu_individual" translatable="false">Individual</string>
+    <string name="ranking_season_23">Season 9 (23)</string>
 </resources>

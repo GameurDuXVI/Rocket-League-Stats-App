@@ -3,7 +3,7 @@ package be.arnaud.rocketleaguestats.ui.global.listeners
 import android.view.View
 import android.widget.AdapterView
 import androidx.lifecycle.MutableLiveData
-import be.arnaud.rocketleaguestats.api.LeaderBoard
+import be.arnaud.rocketleaguestats.api.models.LeaderBoard
 
 class BoardItemSelectedListener(private val board: MutableLiveData<LeaderBoard.Board>): AdapterView.OnItemSelectedListener {
 

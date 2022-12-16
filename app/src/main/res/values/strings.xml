@@ -61,4 +61,6 @@
     <string name="menu_search">Search</string>
     <string name="menu_individual" translatable="false">Individual</string>
     <string name="ranking_season_23">Season 9 (23)</string>
+    <string name="recently_viewed">Recently viewed</string>
+    <string name="results">Results</string>
 </resources>

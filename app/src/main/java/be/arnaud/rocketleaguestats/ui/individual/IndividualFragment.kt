@@ -13,10 +13,10 @@ import be.arnaud.rocketleaguestats.R
 import be.arnaud.rocketleaguestats.api.Platform
 import be.arnaud.rocketleaguestats.api.RestApi
 import be.arnaud.rocketleaguestats.databinding.FragmentIndividualBinding
+import be.arnaud.rocketleaguestats.db.DbUtils
+import be.arnaud.rocketleaguestats.db.models.SearchHistory
 import be.arnaud.rocketleaguestats.ui.MainActivity
 import be.arnaud.rocketleaguestats.ui.adapter.AnyPagerAdapter
-import be.arnaud.rocketleaguestats.ui.global.GlobalFragment
-import be.arnaud.rocketleaguestats.ui.global.stats.GlobalStatsFragment
 import be.arnaud.rocketleaguestats.ui.individual.ranking.IndividualRankingFragment
 import be.arnaud.rocketleaguestats.ui.individual.stats.IndividualStatsFragment
 import com.google.android.material.tabs.TabLayout
@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.InputStream
 import java.net.URL
+import java.util.*
 
 
 class IndividualFragment : Fragment() {
@@ -61,6 +62,8 @@ class IndividualFragment : Fragment() {
                 (activity as MainActivity).navigate(R.id.nav_home)
                 return@getProfile
             }
+
+            DbUtils.upsertSearchHistory(context!!, SearchHistory(viewModel.identifier, profile.data.platformInfo.platformUserHandle, profile.data.platformInfo.platformSlug, Date()))
 
             binding.individualName.text = profile.data.platformInfo.platformUserHandle
             CoroutineScope(Dispatchers.IO).launch {

@@ -101,9 +101,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setSearchQuery(query: String) {
-        binding.appBarMain.searchView.post {
-            binding.appBarMain.searchView.setQuery(query, true)
+        if (binding.appBarMain.searchView.query.isNotEmpty()) {
+            binding.appBarMain.searchView.post {
+                binding.appBarMain.searchView.setQuery(query, true)
+            }
+        } else {
+            getSearchFragment()?.query(query)
         }
+
         binding.appBarMain.searchView.isIconified = false
     }
 

@@ -43,4 +43,6 @@
     <string name="more_chars">The gebruikersnaam moet minstens 3 karakters lang zijn</string>
     <string name="menu_search">Zoeken</string>
     <string name="ranking_season_23">Seizoen 9 (23)</string>
+    <string name="recently_viewed">Recent bekeken</string>
+    <string name="results">Resultaten</string>
 </resources>

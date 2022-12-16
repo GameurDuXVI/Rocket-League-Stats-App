@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import be.arnaud.rocketleaguestats.R
 import be.arnaud.rocketleaguestats.api.RestApi
 import be.arnaud.rocketleaguestats.databinding.FragmentSearchBinding
+import be.arnaud.rocketleaguestats.db.DbUtils
 import be.arnaud.rocketleaguestats.ui.MainActivity
 
 
@@ -30,6 +31,11 @@ class SearchFragment : Fragment() {
         loadingHeader = LayoutInflater.from(context).inflate(R.layout.footer_loading, null)
         noDataHeader = LayoutInflater.from(context).inflate(R.layout.footer_no_data, null)
 
+        if (binding.individualStatsRecycleView.layoutManager == null) {
+            binding.individualStatsRecycleView.layoutManager =
+                LinearLayoutManager(requireContext())
+        }
+
         (activity as MainActivity).setSearchQuery(currentQuery)
 
         return binding.root
@@ -42,34 +48,51 @@ class SearchFragment : Fragment() {
 
     @MainThread
     fun query(query: String) {
-        binding.individualStatsRecycleView.adapter =
-            SearchAdapter(this, emptyList(), null)
-        if (binding.individualStatsRecycleView.layoutManager == null) {
-            binding.individualStatsRecycleView.layoutManager =
-                LinearLayoutManager(requireContext())
-        }
+        println("search with '" + query +"'")
 
-        if (query.isEmpty()) {
-            return
-        }
-        setLoadingHeader()
-        currentQuery = query
-        RestApi.search(query) { data ->
-            if (currentQuery == query) {
-                if (data.isEmpty()) {
+        DbUtils.getAllSearchHistoriesLike(context!!, query) { matchedWithCache ->
+            val matchedWithCacheToItem = matchedWithCache.map { d -> SearchAdapter.Item(d.identifier, d.username, d.platform) }
+
+            binding.individualStatsRecycleView.adapter =
+                SearchAdapter(this, matchedWithCacheToItem, emptyList()){
+                    openIndividual(it.identifier, it.username, it.platform)
+                }
+
+            currentQuery = query
+
+            if (query.isEmpty()) {
+                return@getAllSearchHistoriesLike
+            }
+
+            setLoadingHeader()
+            RestApi.search(query) { data ->
+                if (currentQuery != query) {
+                    return@search
+                }
+
+                val dataToItem = data
+                    .map { d -> SearchAdapter.Item(d.platformUserIdentifier, d.platformUserHandle, d.platformSlug) }
+                val items = matchedWithCacheToItem + dataToItem
+
+                if (items.isEmpty()) {
                     setNoDataHeader()
                 } else {
                     removeHeader()
                 }
+
                 binding.individualStatsRecycleView.adapter =
-                    SearchAdapter(this, data) {
-                        val bundle = Bundle()
-                        bundle.putString("identifier", it.platformUserIdentifier)
-                        bundle.putString("platform", it.platformSlug)
-                        (activity as MainActivity).navigate(R.id.nav_individual, bundle)
+                    SearchAdapter(this, matchedWithCacheToItem, dataToItem) {
+                        openIndividual(it.identifier, it.username, it.platform)
                     }
             }
         }
+    }
+
+    private fun openIndividual(identifier: String, username: String, platform: String){
+        val bundle = Bundle()
+        bundle.putString("identifier", identifier)
+        bundle.putString("platform", platform)
+        (activity as MainActivity).navigate(R.id.nav_individual, bundle)
     }
 
     private fun setLoadingHeader() {

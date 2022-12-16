@@ -12,11 +12,14 @@ import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.logging.Logger
 
 /**
  * @source https://medium.com/android-news/kotlin-coroutines-and-retrofit-e0702d0b8e8f
  */
 object RestApi {
+    val logger = Logger.getLogger(RestApi::class.java.name)
+
     private var rocketLeagueApiV1: RocketLeagueApiV1? = null
     private var rocketLeagueApiV2: RocketLeagueApiV2? = null
 
@@ -51,7 +54,7 @@ object RestApi {
                         callback(response.body())
                     } else {
                         callback(null)
-                        error(response.message())
+                        logger.warning(response.message())
                     }
                 }
             } catch (e: Throwable) {

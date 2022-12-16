@@ -7,10 +7,10 @@ import androidx.room.TypeConverters
 import be.arnaud.rocketleaguestats.db.converters.DateConverter
 import java.util.*
 
-@Entity
+@Entity(primaryKeys = ["identifier", "platform"])
 @TypeConverters(DateConverter::class)
 class SearchHistory(
-    @PrimaryKey @ColumnInfo(name = "identifier") val identifier: String,
+    @ColumnInfo(name = "identifier") val identifier: String,
     @ColumnInfo(name = "username") val username: String,
     @ColumnInfo(name = "platform") val platform: String,
     @ColumnInfo(name = "last_seen") val lastSeen: Date

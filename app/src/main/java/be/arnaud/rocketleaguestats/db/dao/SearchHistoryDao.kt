@@ -28,6 +28,9 @@ interface SearchHistoryDao {
         }
     }
 
+    @Query("DELETE FROM SearchHistory")
+    fun deleteAll()
+
 
     /*@Query("SELECT * FROM user")
     fun getAll(): List<User>

@@ -22,6 +22,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_options"
+        android:name="be.arnaud.rocketleaguestats.ui.options.OptionsFragment"
+        android:label="@string/menu_options"
+        tools:layout="@layout/fragment_options" >
+        <action
+            android:id="@+id/action_nav_search_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+
+    <fragment
         android:id="@+id/nav_individual"
         android:name="be.arnaud.rocketleaguestats.ui.individual.IndividualFragment"
         tools:layout="@layout/fragment_individual" >

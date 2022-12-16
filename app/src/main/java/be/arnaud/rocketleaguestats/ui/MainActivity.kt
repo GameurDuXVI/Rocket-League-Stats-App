@@ -11,8 +11,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import be.arnaud.rocketleaguestats.R
 import be.arnaud.rocketleaguestats.databinding.ActivityMainBinding
+import be.arnaud.rocketleaguestats.ui.options.OptionsFragment
 import be.arnaud.rocketleaguestats.ui.search.SearchFragment
-import retrofit2.http.Query
 
 
 class MainActivity : AppCompatActivity() {
@@ -79,14 +79,14 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        /*when (item.itemId) {
-            R.id.action_search -> {
-                findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.nav_search)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_settings -> {
+                navigate(R.id.nav_options)
             }
-        }*/
+        }
         return super.onOptionsItemSelected(item)
-    }*/
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)

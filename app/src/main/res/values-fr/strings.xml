@@ -45,4 +45,7 @@
     <string name="ranking_season_23">Saison 9 (23)</string>
     <string name="recently_viewed">Vu récemment</string>
     <string name="results">Résulats</string>
+    <string name="option_clear_cache_button">Vider le cache</string>
+    <string name="menu_options">Options</string>
+    <string name="option_cache_cleared">Cache vidé</string>
 </resources>

@@ -22,4 +22,10 @@ object DbUtils {
             appDatabase.searchHistoryDao().upsert(searchHistory)
         })
     }
+
+    fun clearAllSearchHistory(context: Context) {
+        AppDatabase.get(context, call = { appDatabase ->
+            appDatabase.searchHistoryDao().deleteAll()
+        })
+    }
 }

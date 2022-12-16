@@ -78,7 +78,7 @@ class IndividualFragment : Fragment() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-                withContext(viewLifecycleOwner.lifecycleScope.coroutineContext) {
+                withContext(Dispatchers.Main) {
                     if (bitmap != null) {
                         binding.individualIcon.setImageBitmap(bitmap)
                         binding.individualHeaderContainer.removeView(binding.individualLoad)

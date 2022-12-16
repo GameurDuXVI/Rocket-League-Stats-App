@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.search.SearchFragment">
+    tools:context=".ui.individual.stats.IndividualStatsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/individual_stats_recycle_view"

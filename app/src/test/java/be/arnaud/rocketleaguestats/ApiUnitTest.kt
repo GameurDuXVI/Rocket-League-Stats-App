@@ -20,36 +20,40 @@ import java.util.concurrent.TimeUnit
  */
 class ApiUnitTest {
 
-    val dispatcher = StandardTestDispatcher()
+    // Creating a test dispatcher
+    private val dispatcher = StandardTestDispatcher()
 
     @Before
     fun setup() {
+        // Assigning the test dispatcher
         Dispatchers.setMain(dispatcher)
     }
 
     @Test
     fun apiSearch() = runTest {
+        // Defining count down latch for waiting the async task
         val latch = CountDownLatch(1)
         val username = "gamer"
 
         println(String.format("Searching user by name (%s)", username))
+        // Search a user with the api
         RestApi.search(username) { data ->
             assertNotNull(data)
-
-            val firstEntry = data[0]
-
-            assertNotNull(firstEntry)
+            assertNotNull(data[0])
 
             println(String.format("User found", username))
 
+            // Releasing the latch
             latch.countDown()
         }
 
+        // Wait before the test can exit
         latch.await(10000, TimeUnit.MILLISECONDS)
     }
 
     @After
     fun tearDown() {
+        // Reset the test dispatcher
         Dispatchers.resetMain()
     }
 }

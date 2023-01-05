@@ -19,16 +19,20 @@ class IndividualRankingRecycleViewAdapter(val fragment: Fragment, val data: List
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        // Get current item
         val item = data[position]
 
+        // Get playlist & show it
         val playlist = PlayList.fromId(item.attributes?.playlistId)
         if (playlist != null) {
             holder.binding.individualRankingPlaylist.text = fragment.requireContext().resources.getText(playlist.resourceId)
         }
 
+        // Change text
         holder.binding.individualRankingDivision.text = item.stats.division.metadata.name
         holder.binding.individualRankingValue.text = item.stats.rating.value.toInt().toString()
 
+        // Get rank image
         val rank = Rank.fromId(item.stats.tier.value.toInt())
         holder.binding.individualRankingIcon.setImageResource(rank.drawableId)
     }

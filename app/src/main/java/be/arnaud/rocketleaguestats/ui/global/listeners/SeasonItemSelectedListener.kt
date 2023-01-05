@@ -9,8 +9,10 @@ class SeasonItemSelectedListener(private val season: MutableLiveData<Season>): A
 
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        // Check if the tag is a season
         if (view?.tag is Season) {
             val newValue = view.tag as Season
+            // Change value if it is new
             if (season.value != newValue) {
                 season.value = newValue
             }

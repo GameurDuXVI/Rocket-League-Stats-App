@@ -48,11 +48,13 @@ class GlobalStatsFragment : Fragment(), AbsListView.OnScrollListener {
 
         // Define observer
         val fetch: () -> Unit = {
+            // Get data from api
             RestApi.getStatsLeaderBoard(
                 viewModel.board.value!!,
                 viewModel.platform.value!!,
                 0
             ) { leaderBoard ->
+                // Apply data to ui
                 if (leaderBoard != null) {
                     vlAdapter = StatsLeaderBoardAdapter(activity!!, leaderBoard.data.items, 0)
                     binding.globalStatsListview.adapter = vlAdapter
@@ -60,11 +62,14 @@ class GlobalStatsFragment : Fragment(), AbsListView.OnScrollListener {
             }
         }
 
+        // Config on click listener
         binding.globalStatsListview.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
+                // Return if no adapter assigned
                 if (vlAdapter == null) {
                     return@OnItemClickListener
                 }
+                // Put data to bundle and navigate fragment
                 val item = vlAdapter!!.getItem(position)!!
                 val bundle = Bundle()
                 bundle.putString("identifier", item.owner.metadata.platformUserIdentifier)

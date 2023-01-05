@@ -22,10 +22,15 @@ class SeasonSpinnerAdapter(context: Context) :
     }
 
     private fun initView(position: Int, convertView: View?, parent: ViewGroup): View {
+        // Inflate view
         val view: View = convertView?: LayoutInflater.from(context).inflate(R.layout.spinner_row_season, parent, false)
+        // Get current item
         val currentItem = getItem(position)!!
+        // Change textview text
         view.findViewById<TextView>(R.id.spinner_season_text)?.text = context.resources.getText(currentItem.resourceId)
+        // Set view tag
         view.tag = currentItem
+        // Return view
         return view
     }
 }

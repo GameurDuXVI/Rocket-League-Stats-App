@@ -18,8 +18,10 @@ class IndividualStatsRecycleViewAdapter(val fragment: Fragment, val data: List<I
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        // Get current item
         val item = data[position]
 
+        // Change text
         holder.binding.individualStatsType.text = fragment.requireContext().resources.getText(item.resourceId)
         holder.binding.individualStatsValue.text = item.data.value.toInt().toString()
     }

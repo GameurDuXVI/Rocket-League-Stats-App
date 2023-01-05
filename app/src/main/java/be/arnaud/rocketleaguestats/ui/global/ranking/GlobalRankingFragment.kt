@@ -58,9 +58,11 @@ class GlobalRankingFragment : Fragment(), AbsListView.OnScrollListener {
 
         // Define observer
         val fetch: () -> Unit = {
+            // Get data from api
             RestApi.getRankingLeaderBoard(
                 viewModel.platform.value!!, viewModel.season.value!!, viewModel.playlist.value!!, 0
             ) { leaderBoard ->
+                // Return if data not found
                 if (leaderBoard == null) {
                     return@getRankingLeaderBoard
                 }
@@ -71,16 +73,20 @@ class GlobalRankingFragment : Fragment(), AbsListView.OnScrollListener {
                     setLoadingFooter()
                 }
 
+                // Apply data to the ui
                 vlAdapter = RankingLeaderBoardAdapter(activity!!, leaderBoard.data.items, 0)
                 binding.globalRankingListview.adapter = vlAdapter
             }
         }
 
+        // Config on click listener
         binding.globalRankingListview.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
+                // Return if no adapter assigned
                 if (vlAdapter == null) {
                     return@OnItemClickListener
                 }
+                // Put data to bundle and navigate fragment
                 val item = vlAdapter!!.getItem(position)!!
                 val bundle = Bundle()
                 bundle.putString("identifier", item.owner.metadata.platformUserIdentifier)

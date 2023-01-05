@@ -17,10 +17,6 @@ class RankingLeaderBoardAdapter(context: Context, private val items: List<Leader
         R.id.leaderboard_ranking_name,
         items.distinctBy { leaderBoardItem -> leaderBoardItem.id }) {
 
-    override fun addAll(vararg items: LeaderBoardItem?) {
-        super.addAll(items.filter { leaderBoardItem -> this.items.none { lbi -> lbi.id == leaderBoardItem?.id } })
-    }
-
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         return initView(position, convertView, parent)
     }
@@ -30,12 +26,17 @@ class RankingLeaderBoardAdapter(context: Context, private val items: List<Leader
     }
 
     private fun initView(position: Int, convertView: View?, parent: ViewGroup): View {
+        // Inflate view
         val view: View = convertView?: LayoutInflater.from(context).inflate(R.layout.item_leaderboard_ranking, parent, false)
+        // Get current item
         val currentItem = getItem(position)!!
+        // Change textview text
         view.findViewById<TextView>(R.id.leaderboard_ranking_rank)?.text = (position + 1).toString()
         view.findViewById<TextView>(R.id.leaderboard_ranking_name)?.text = currentItem.owner.metadata.platformUserHandle
         view.findViewById<TextView>(R.id.leaderboard_ranking_value)?.text = currentItem.value.roundToLong().toString()
+        // Set view tag
         view.tag = currentItem
+        // Return view
         return view
     }
 }

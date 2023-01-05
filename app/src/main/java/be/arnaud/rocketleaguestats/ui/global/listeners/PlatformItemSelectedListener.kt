@@ -9,8 +9,10 @@ class PlatformItemSelectedListener(private val platform: MutableLiveData<Platfor
 
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        // Check if the tag is a platform
         if (view?.tag is Platform) {
             val newValue = view.tag as Platform
+            // Change value if it is new
             if (platform.value != newValue) {
                 platform.value = newValue
             }

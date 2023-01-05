@@ -22,12 +22,13 @@ class GlobalFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        println("view create")
         _binding = FragmentGlobalBinding.inflate(inflater, container, false)
 
+        // Config a pager adapter
         binding.globalStatsViewPager.adapter = AnyPagerAdapter(this, listOf(GlobalRankingFragment(), GlobalStatsFragment()))
         binding.globalStatsViewPager.offscreenPageLimit = 1
 
+        // Apply pager to the tablayout
         TabLayoutMediator(binding.globalStatsTabLayout, binding.globalStatsViewPager) { tab, position ->
             tab.text = when(position){
                 0 -> "Ranking"
@@ -35,6 +36,7 @@ class GlobalFragment : Fragment() {
             }
         }.attach()
 
+        // Add action on tab selected
         binding.globalStatsTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding.globalStatsViewPager.currentItem = tab.position

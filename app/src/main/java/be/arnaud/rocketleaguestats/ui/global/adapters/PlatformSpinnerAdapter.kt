@@ -23,15 +23,20 @@ class PlatformSpinnerAdapter(context: Context) :
     }
 
     private fun initView(position: Int, convertView: View?, parent: ViewGroup): View {
+        // Inflate view
         val view: View = convertView?: LayoutInflater.from(context).inflate(R.layout.spinner_row_platform, parent, false)
+        // Get current item
         val currentItem = getItem(position)!!
+        // Show all platforms if platform is all, else show platform name and icon
         if (currentItem == Platform.ALL){
             view.findViewById<TextView>(R.id.spinner_platform_text)?.text = context.resources.getText(R.string.all_platforms)
         } else {
             view.findViewById<TextView>(R.id.spinner_platform_text)?.text = currentItem.displayName
             view.findViewById<ImageView>(R.id.spinner_platform_icon)?.setImageResource(currentItem.drawableResource)
         }
+        // Set view tag
         view.tag = currentItem
+        // Return view
         return view
     }
 }

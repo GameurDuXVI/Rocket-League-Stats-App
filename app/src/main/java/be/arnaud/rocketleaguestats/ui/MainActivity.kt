@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setSearchQuery(query: String) {
-        if (binding.appBarMain.searchView.query.isNotEmpty()) {
+        if (query.isNotEmpty()) {
             binding.appBarMain.searchView.post {
                 binding.appBarMain.searchView.setQuery(query, true)
             }

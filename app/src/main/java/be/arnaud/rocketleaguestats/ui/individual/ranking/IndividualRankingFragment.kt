@@ -29,13 +29,17 @@ class IndividualRankingFragment(val identifier: String, val platform: Platform) 
         viewModel = ViewModelProvider(this)[IndividualViewRankingModel::class.java]
         _binding = FragmentIndividualRankingBinding.inflate(inflater, container, false)
 
+        // Config spinner
         val season = binding.individualRankingSeasonSpinner
         season.adapter = SeasonSpinnerAdapter(requireContext())
         season.onItemSelectedListener = SeasonItemSelectedListener(viewModel.season)
 
+        // Define observer
         val fetch: () -> Unit = {
+            // Get data from api
             RestApi.getProfileSegment(identifier, platform, viewModel.season.value!!) {
                 if (it != null) {
+                    // Apply data to the ui
                     binding.individualRankingRecycleView.adapter =
                         IndividualRankingRecycleViewAdapter(this, it.data)
                     if (binding.individualRankingRecycleView.layoutManager == null) {
@@ -46,6 +50,7 @@ class IndividualRankingFragment(val identifier: String, val platform: Platform) 
             }
         }
 
+        // Observing view model for changes
         viewModel.season.observe(viewLifecycleOwner){ fetch() }
 
         fetch()

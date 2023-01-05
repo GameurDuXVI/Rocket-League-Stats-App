@@ -24,12 +24,14 @@ class OptionsFragment : Fragment() {
     ): View {
         _binding = FragmentOptionsBinding.inflate(inflater, container, false)
 
+        // Enable button if any history item is found
         DbUtils.getAllSearchHistories(context!!) { items ->
             if (items.isNotEmpty()) {
                 binding.optionCacheButton.isEnabled = true
             }
         }
 
+        // Config click listener of the button
         binding.optionCacheButton.setOnClickListener {
             DbUtils.clearAllSearchHistory(context!!)
             binding.optionCacheButton.isEnabled = false

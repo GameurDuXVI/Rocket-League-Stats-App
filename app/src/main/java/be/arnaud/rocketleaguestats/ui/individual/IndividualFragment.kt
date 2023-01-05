@@ -44,6 +44,7 @@ class IndividualFragment : Fragment() {
         viewModel = ViewModelProvider(this)[IndividualViewModel::class.java]
         _binding = FragmentIndividualBinding.inflate(inflater, container, false)
 
+        // Define variables from bundle arguments
         arguments?.let { bundle ->
             viewModel.identifier = bundle?.getString("identifier")!!
             viewModel.platform =
@@ -51,21 +52,26 @@ class IndividualFragment : Fragment() {
                     .first { platform -> platform.typeName == bundle.getString("platform")!! }
         }
 
-
+        // Change activity title
         (activity as MainActivity).toolbar.title = ""
 
+        // Get data from api
         RestApi.getProfile(
             viewModel.identifier,
             viewModel.platform
         ) { profile ->
+            // If profile is not found, navigate to home page
             if (profile == null) {
                 (activity as MainActivity).navigate(R.id.nav_home)
                 return@getProfile
             }
 
+            // Add or update the search history
             DbUtils.upsertSearchHistory(context!!, SearchHistory(viewModel.identifier, profile.data.platformInfo.platformUserHandle, profile.data.platformInfo.platformSlug, Date()))
 
+            // Apply data on ui
             binding.individualName.text = profile.data.platformInfo.platformUserHandle
+            // Get image from url using coroutines
             CoroutineScope(Dispatchers.IO).launch {
                 var url = profile.data.platformInfo.avatarUrl
                 if (url == null) {
@@ -79,6 +85,7 @@ class IndividualFragment : Fragment() {
                     e.printStackTrace()
                 }
                 withContext(Dispatchers.Main) {
+                    // Apply image if profile image is found
                     if (bitmap != null) {
                         binding.individualIcon.setImageBitmap(bitmap)
                         binding.individualHeaderContainer.removeView(binding.individualLoad)
@@ -87,9 +94,11 @@ class IndividualFragment : Fragment() {
             }
         }
 
+        // Config page adapter
         binding.individualViewPager.adapter = AnyPagerAdapter(this, listOf(IndividualRankingFragment(viewModel.identifier, viewModel.platform), IndividualStatsFragment(viewModel.identifier, viewModel.platform)))
         binding.individualViewPager.offscreenPageLimit = 1
 
+        // Config tab layout
         TabLayoutMediator(binding.individualTabLayout, binding.individualViewPager) { tab, position ->
             tab.text = when(position){
                 0 -> "Ranking"
@@ -97,6 +106,7 @@ class IndividualFragment : Fragment() {
             }
         }.attach()
 
+        // Config selected tab layout listener
         binding.individualTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding.individualViewPager.currentItem = tab.position

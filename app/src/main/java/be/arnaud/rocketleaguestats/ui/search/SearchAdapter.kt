@@ -26,10 +26,13 @@ class SearchAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.allItems = emptyList()
         this.callback = callback
 
+        // Show history separator if any history item exists
         if (historyItems.isNotEmpty()) {
             this.allItems += listOf(historySeparator) + historyItems
         }
+        // Show searched items if not empty
         if (items.isNotEmpty()) {
+            // Show search items separator if there are 2 categories
             if (historyItems.isNotEmpty()){
                 this.allItems += listOf(itemsSeparator)
             }
@@ -57,19 +60,23 @@ class SearchAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     override fun getItemViewType(position: Int): Int {
+        // Define 2 types of view type, 1 = separator, 0 = item
         return if (allItems[position].separator) 1 else 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        // Inflate item is view type is an item
         if (viewType == 0) {
             return ViewHolder(ItemSearchBinding.inflate(LayoutInflater.from(fragment.requireContext()), parent, false)) {
                 callback?.let { it1 -> it1(allItems[it]) }
             }
         }
+        // Inflate separator
         return SeparatorViewHolder(ItemSearchSeparatorBinding.inflate(LayoutInflater.from(fragment.requireContext()), parent, false))
     }
 
     override fun onBindViewHolder(h: RecyclerView.ViewHolder, position: Int) {
+        // Get current item
         val item = allItems[position]
         if (item.separator) {
             val holder = h as SeparatorViewHolder

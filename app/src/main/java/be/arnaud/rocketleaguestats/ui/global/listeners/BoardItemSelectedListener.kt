@@ -9,8 +9,10 @@ class BoardItemSelectedListener(private val board: MutableLiveData<LeaderBoard.B
 
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        // Check if the tag is a board
         if (view?.tag is LeaderBoard.Board) {
             val newValue = view.tag as LeaderBoard.Board
+            // Change value if it is new
             if (board.value != newValue) {
                 board.value = newValue
             }

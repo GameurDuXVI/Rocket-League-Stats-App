@@ -35,13 +35,13 @@ class ApiUnitTest {
         val latch = CountDownLatch(1)
         val username = "gamer"
 
-        println(String.format("Searching user by name (%s)", username))
+        println("Searching user by name ($username)")
         // Search a user with the api
         RestApi.search(username) { data ->
             assertNotNull(data)
             assertNotNull(data[0])
 
-            println(String.format("User found", username))
+            println("User found")
 
             // Releasing the latch
             latch.countDown()

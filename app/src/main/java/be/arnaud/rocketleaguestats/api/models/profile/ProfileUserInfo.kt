@@ -8,9 +8,6 @@ data class ProfileUserInfo(
     val countryCode: String?,
     val customAvatarUrl: String?,
     val customHeroUrl: String?,
-    val socialAccounts: List<String>,
-    val pageviews: Int,
-    val isSuspicious: Boolean?
 ) {
 
 }
